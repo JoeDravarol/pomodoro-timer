@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+
+  <h1 class="title">Pomodoro Clock</h1>
+
+  <div class="options"> <!-- Start of Options -->
+
+    <section class="session"> <!-- Start of Session -->
+      <h2 class="option__title">Session Time</h2>
+
+      <div class="option__inputs">
+        <button id="session-increment" class="option__btn"><ion-icon name="arrow-dropup-circle"></ion-icon></button>
+        <p id="session-intervals" class="option__time">25</p>
+        <button id="session-decrement" class="option__btn"><ion-icon name="arrow-dropdown-circle"></ion-icon></button>
+      </div>
+    </section> <!-- End of Session -->
+
+    <section class="break"> <!-- Start of Break -->
+      <h2 class="option__title">Break Time</h2>
+
+      <div class="option__inputs">
+        <button id="break-increment" class="option__btn"><ion-icon name="arrow-dropup-circle"></ion-icon></button>
+        <p id="break-intervals" class="option__time">5</p>
+        <button id="break-decrement" class="option__btn"><ion-icon name="arrow-dropdown-circle"></ion-icon></button>
+      </div>
+    </section> <!-- End of Break -->
+
+  </div> <!-- End of Options -->
+
+  <div class="timer"> <!-- Start of Timer -->
+    <h2 id="interval-type" class="timer__title">Session</h2>
+
+      <button id="play" class="timer__btn"><ion-icon name="play-circle"></ion-icon></button>
+      <button id="reset" class="timer__btn"><ion-icon name="refresh-circle"></ion-icon></button>
+
+      <p id="countdown" class="timer__countdown">25:00</p>
+
+      <button id="pause" class="timer__btn"><ion-icon name="pause"></ion-icon></button>
+      <button id="stop" class="timer__btn"><ion-icon name="square"></ion-icon></button>
+  </div> <!-- End of Timer -->
+
+  <script src="script.js"></script>
+</body>
+
+</html>
