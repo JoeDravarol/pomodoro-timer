@@ -112,7 +112,11 @@ function stopTimer() {
 document.querySelector('.session').addEventListener('click', mainController);
 document.querySelector('.break').addEventListener('click', mainController);
 
-eventHandler.timer.btns.play.addEventListener('click', startTimer);
+eventHandler.timer.btns.play.addEventListener('click', () => {
+    if (data.isPaused === true) {
+        startTimer();
+    }
+});
 eventHandler.timer.btns.pause.addEventListener('click', pauseTimer);
 eventHandler.timer.btns.stop.addEventListener('click', stopTimer);
 eventHandler.timer.btns.reset.addEventListener('click', resetTimer);
