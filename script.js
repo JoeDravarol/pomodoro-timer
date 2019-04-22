@@ -54,18 +54,25 @@ function updateTimeUI() {
     eventHandler.sessionIntervals.textContent = data.session;
     eventHandler.breakIntervals.textContent = data.break;
 
+
+    eventHandler.timer.type.textContent = 'session';
     eventHandler.timer.countdown.textContent = data.session < 10 ? "0" + data.session + ":00" : data.session + ":00";
+    eventHandler.timer.countdown.style.color = 'white';
 }
 
 function startTimer() {
-    let minutes, seconds;
+    let minutes, seconds, fiftyPercent, twentyPercent;
     let timerType = 'session';
+    let text = 'Time to work!';
+    let colour = 'green';
     data.isPaused = false;
 
     // If time hasn't been set
     if (typeof data.timer === 'undefined') {
         // Set new time
         data.timer = 60 * data[timerType]
+        fiftyPercent = Math.floor( 0.5 * (data[timerType] * 60) );
+        twentyPercent = Math.floor( 0.2 * (data[timerType] * 60) );
     }
 
     if (!data.isPaused) {
@@ -74,17 +81,30 @@ function startTimer() {
             // Calculate minutes and seconds
             minutes = parseInt(data.timer / 60, 10);
             seconds = parseInt(data.timer % 60, 10);
-
+            
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
             eventHandler.timer.countdown.textContent = minutes + ":" + seconds;
+            eventHandler.timer.type.textContent = text;
+            eventHandler.timer.countdown.style.color = colour;
     
             // Switch interval type and countdown time
             if (--data.timer < 0) {
                 timerType = timerType === 'session' ? 'break' : 'session';      
-                eventHandler.timer.type.textContent = timerType === 'session' ? 'Time to work!' : 'Take a break!';   
+                eventHandler.timer.type.textContent = timerType === 'session' ? text = 'Time to work!' : text = 'Take a break!';   
                 data.timer = 60 * data[timerType];
+
+                fiftyPercent = Math.floor( 0.5 * (data[timerType] * 60) );
+                twentyPercent = Math.floor( 0.2 * (data[timerType] * 60) );
+                colour = 'green';
+            }
+
+            // Change countdown colour
+            if ( fiftyPercent === data.timer) {
+                colour = 'yellow';
+            } else if ( twentyPercent === data.timer) {
+                colour = 'red';
             }
         }, 1000);
     }
@@ -98,6 +118,7 @@ function pauseTimer() {
 function resetTimer() {
     data.session = 25;
     data.break = 5;
+    data.isPaused = true;
     data.timer = undefined;
     clearInterval(data.intervalID);
     updateTimeUI();
@@ -105,6 +126,7 @@ function resetTimer() {
 
 function stopTimer() {
     data.timer = undefined;
+    data.isPaused = true;
     clearInterval(data.intervalID);
     updateTimeUI();
 }
